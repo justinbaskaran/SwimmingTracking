@@ -1,4 +1,4 @@
-Swimming Tracking
+Swim Tracking
 
 
 Purpose:
