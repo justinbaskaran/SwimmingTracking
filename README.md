@@ -18,6 +18,6 @@ Methdology:
 
       c) Strokes.
 
-3) To evaluate the above stastistics, I will be using a bar graph. To track these three metrics over time (time is x, metric is Y).
+3) To evaluate the above stastistics, I will be using a line graph. To track these three metrics over time (time is x, metric is Y).
 
 
