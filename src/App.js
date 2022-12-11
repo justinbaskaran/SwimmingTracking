@@ -1,137 +1,63 @@
+
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import {
-  Chart,
-  ArgumentAxis,
-  ValueAxis,
-  LineSeries,
-  Title,
-  Legend,
-} from '@devexpress/dx-react-chart-material-ui';
-import { styled } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
-import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
-import {
-  curveCatmullRom,
-  line,
-} from 'd3-shape';
-import { scalePoint } from 'd3-scale';
+import { Line } from "react-chartjs-2";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Chart from 'chart.js/auto';
 
-import { energyConsumption as data } from './demo-data/data-vizualization';
+import * as d3 from "d3";
 
-const PREFIX = 'Demo';
 
-const classes = {
-  title: `${PREFIX}-title`,
-  chart: `${PREFIX}-chart`,
-};
+Chart.register(ChartDataLabels);
 
-const Line = props => (
-  <LineSeries.Path
-    {...props}
-    path={line()
-      .x(({ arg }) => arg)
-      .y(({ val }) => val)
-      .curve(curveCatmullRom)}
-  />
-);
 
-const StyledDiv = styled('div')(() => ({
-  [`&.${classes.title}`]: {
-    textAlign: 'center',
-    width: '100%',
-    marginBottom: '10px',
-  },
-}));
+let calorieDate=[];
+let calorieAmt=[];
 
-const Text = ({ text }) => {
-  const [mainText, subText] = text.split('\\n');
-  return (
-    <StyledDiv className={classes.title}>
-      <Typography component="h3" variant="h5">
-        {mainText}
-      </Typography>
-      <Typography variant="subtitle1">{subText}</Typography>
-    </StyledDiv>
-  );
-};
+  // get the data
+  d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=523570039&single=true&output=csv").then((data) => {
+    //if (error) throw error;
+    //console.log(data[0]);
+    for (var i=0;i<data.length;i++){
+      if (data[i]['com.samsung.health.exercise.exercise_type'] === "14001" && parseInt(data[i]['total_calorie']) >400  ){
+        //console.log(data[i]);
+        calorieAmt.push(data[i]['total_calorie'] );
+        calorieDate.push(data[i]['com.samsung.health.exercise.start_time']);
+        //calorieDate.push(i);
+      }
+    }
+    calorieAmt.push('0');
+    console.log(calorieDate);
+    console.log(calorieAmt);
+  });
 
-const Root = props => (
-  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
-);
-const Label = props => (
-  <Legend.Label {...props} sx={{ mb: 1, whiteSpace: 'nowrap' }} />
-);
-const Item = props => (
-  <Legend.Item {...props} sx={{ flexDirection: 'column-reverse' }} />
-);
-
-const StyledChart = styled(Chart)(() => ({
-  [`&.${classes.chart}`]: {
-    paddingRight: '30px',
-  },
-}));
 
 export default class App extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data,
-    };
-  }
 
   render() {
-    const { data: chartData } = this.state;
+   
 
-    return (
-      <Paper>
-        <StyledChart
-          data={chartData}
-          className={classes.chart}
-        >
-          <ArgumentScale factory={scalePoint} />
-          <ArgumentAxis />
-          <ValueAxis />
+     return (
+          <div>
+            <Line
+              data={{
+                // x-axis label values
+                labels: calorieDate,
+                datasets: [
+                  {
+                    label: "Total Calories Burned",
+                    // y-axis data plotting values
+                    data: calorieAmt,
+                    //fill: false,
+                    borderWidth:4,
+                    backgroundColor: "rgb(255, 99, 132)",
+                    borderColor:'green',
+                    responsive:true
+                  },
+                ],
+              }}
+            />
+          </div>
+        );
 
-          <LineSeries
-            name="Hydro-electric"
-            valueField="hydro"
-            argumentField="country"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Oil"
-            valueField="oil"
-            argumentField="country"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Natural gas"
-            valueField="gas"
-            argumentField="country"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Coal"
-            valueField="coal"
-            argumentField="country"
-            seriesComponent={Line}
-          />
-          <LineSeries
-            name="Nuclear"
-            valueField="nuclear"
-            argumentField="country"
-            seriesComponent={Line}
-          />
-          <Legend position="bottom" rootComponent={Root} itemComponent={Item} labelComponent={Label} />
-          <Title
-            text="Energy Consumption in 2004\n(Millions of Tons, Oil Equivalent)"
-            textComponent={Text}
-          />
-          <Animation />
-        </StyledChart>
-      </Paper>
-    );
   }
 }
