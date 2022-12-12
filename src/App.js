@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { fetchDailyData } from "./Data";
+import { fetchDailyDataCalories,fetchDailyDataSpeed } from "./Data";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
 const LineChart = () => {
-  const [dailyData, setDailyData] = useState([]);
-
+  const [dailyDataCalories, setDailyDataCalories] = useState([]);
+  const [dailyDataSpeed, setDailyDataSpeed] = useState([]);
+  
   const fetchApi = async () => {
-    const dailyData = await fetchDailyData();
-
-    
-    setDailyData(dailyData);
-
+    const dailyDataCalories = await fetchDailyDataCalories();
+    setDailyDataCalories(dailyDataCalories);
+    const dailyDataSpeed = await fetchDailyDataSpeed();
+    setDailyDataSpeed(dailyDataSpeed);
   };
 
 
@@ -19,33 +19,47 @@ const LineChart = () => {
     fetchApi();
   }, []);
   
-  const lineChart = dailyData  ? (
+  const lineChartCalories = dailyDataCalories  ? (
 
     <Line
       data={{
-        labels: Array.from(dailyData.keys()),
+        labels: Array.from(dailyDataCalories.keys()),
         datasets: [
           {
-            data: Array.from(dailyData.entries()),
+            data: Array.from(dailyDataCalories.entries()),
             label: "Calories",
-            borderColor: "rgb(0, 217, 255)",
+            borderColor: 'rgb(75, 192, 192)',
             fill: false,
-          },
-          {
-            data: Array.from(dailyData.entries()),
-            label: "Deaths",
-            borderColor: "red",
-            backgroundColor: "rgb(255, 0, 0)",
-            fill: false,
-          },
+          }
         ],
       }}
     />
+    
   ) : null;
+
+  const lineChartSpeed = dailyDataSpeed  ? (
+
+    <Line
+      data={{
+        labels: Array.from(dailyDataSpeed.keys()),
+        datasets: [
+          {
+            data: Array.from(dailyDataSpeed.entries()),
+            label: "Speed (meters per second)",
+            borderColor: 'rgb(75, 192, 192)',
+            fill: false,
+          }
+        ],
+      }}
+    />
+    
+  ) : null;
+
 
   return (
     <>
-      <div>{lineChart}</div>
+      <div>{lineChartCalories}</div>
+      <div>{lineChartSpeed}</div>
     </>
   );
 };
