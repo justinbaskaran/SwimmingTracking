@@ -1,9 +1,13 @@
 {
   "name": "swimmingtracking",
   "version": "0.1.0",
-  "homepage":"https://justinbaskaran.github.io/SwimmingTracking",
+  "homepage": "https://justinbaskaran.github.io/SwimmingTracking",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "chart.js": "^4.0.1",
