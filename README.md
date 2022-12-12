@@ -13,7 +13,9 @@ Methdology:
 2) Once I get the data from google drive, it will be parsed and displayed on the front-end. To show a few key statistics:
 
       a) Calories - This should go up with time. I plan to increase calories incrementally. 
+      
       b) Speed - This should go up, with time.
+      
       c) Mean Heart Rate - As you become a better swimmer, this time should steadily go down
 
 3) To evaluate the above stastistics, I will be using a line graph. To track these three metrics over time (time is x, metric is Y).
