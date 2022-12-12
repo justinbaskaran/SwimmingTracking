@@ -58,6 +58,7 @@ const LineChart = () => {
 
   return (
     <>
+      <center><h1>Swimming Metrics</h1></center>
       <div>{lineChartCalories}</div>
       <div>{lineChartSpeed}</div>
     </>
