@@ -1,11 +1,11 @@
 import * as d3 from "d3";
 
-  
+let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=2006021335&single=true&output=csv";  
 
   export const fetchDailyDataSpeed = async () => {
     try {
         let speedMap = new Map();
-        await d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=523570039&single=true&output=csv").then((data) => {
+        await d3.csv(url).then((data) => {
             //if (error) throw error;
             
             for (var i=0;i<data.length;i++){
@@ -29,7 +29,7 @@ import * as d3 from "d3";
   export const fetchDailyDataCalories = async () => {
     try {
         let calorieMap = new Map();
-        await d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=523570039&single=true&output=csv").then((data) => {
+        await d3.csv(url).then((data) => {
             //if (error) throw error;
             
             for (var i=0;i<data.length;i++){
@@ -53,7 +53,7 @@ import * as d3 from "d3";
   export const fetchDailyDataHeartRate = async () => {
     try {
         let calorieMap = new Map();
-        await d3.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=523570039&single=true&output=csv").then((data) => {
+        await d3.csv(url).then((data) => {
             //if (error) throw error;
             
             for (var i=0;i<data.length;i++){
