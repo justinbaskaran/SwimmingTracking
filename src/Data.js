@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 
-let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?gid=2006021335&single=true&output=csv";  
+let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheFdRpl2gL2TvWlc21X62yG3OF8sFnS-5TRtHE486eLpWluAMj_yNW10CS5/pub?output=csv";  
 
   export const fetchDailyDataSpeed = async () => {
     try {
@@ -10,8 +10,8 @@ let url="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpKLJZyuUWLas1lxwPmheF
             
             for (var i=0;i<data.length;i++){
               if (data[i]['com.samsung.health.exercise.exercise_type'] === "14001" && parseInt(data[i]['total_calorie']) >400  ){
-              
-                speedMap.set(data[i]['com.samsung.health.exercise.start_time'],data[i]['com.samsung.health.exercise.mean_speed']);
+                let speed = (parseFloat(data[i]['com.samsung.health.exercise.mean_speed'])*2.23694).toString();
+                speedMap.set(data[i]['com.samsung.health.exercise.start_time'],speed);
               
               }
             }

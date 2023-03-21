@@ -15,8 +15,13 @@ const LineChart = () => {
     setDailyDataSpeed(dailyDataSpeed);
     const dailyDataHeartRate = await fetchDailyDataHeartRate();
     setDailyDataHeartRate(dailyDataHeartRate);
+    Chart.defaults.color = "#FFFFFF";
   };
 
+  const options = {
+    scales: {
+    }
+  };
 
   useEffect(() => {
     fetchApi();
@@ -25,6 +30,7 @@ const LineChart = () => {
   const lineChartCalories = dailyDataCalories  ? (
 
     <Line
+      options={options}
       data={{
         labels: Array.from(dailyDataCalories.keys()),
         datasets: [
@@ -43,12 +49,13 @@ const LineChart = () => {
   const lineChartSpeed = dailyDataSpeed  ? (
 
     <Line
+    options={options}
       data={{
         labels: Array.from(dailyDataSpeed.keys()),
         datasets: [
           {
             data: Array.from(dailyDataSpeed.entries()),
-            label: "Speed (meters per second)",
+            label: "Speed (miles per hour)",
             borderColor: 'rgb(75, 192, 192)',
             fill: false,
           }
@@ -58,9 +65,12 @@ const LineChart = () => {
     
   ) : null;
 
+
   const lineChartHeartRate = dailyDataHeartRate  ? (
 
     <Line
+    options={options}
+
       data={{
         labels: Array.from(dailyDataHeartRate.keys()),
         datasets: [
@@ -69,6 +79,7 @@ const LineChart = () => {
             label: "Mean Heart Rate (beats per minute)",
             borderColor: 'rgb(75, 192, 192)',
             fill: false,
+            labels:false,
           }
         ],
       }}
